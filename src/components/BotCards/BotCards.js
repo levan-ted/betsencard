@@ -12,7 +12,12 @@ function BotCards() {
       <div className={classes['cards-container']}>
         {ctx.botCards.map((card) => {
           return (
-            <Card cardValue={card.val} imgSrc={card.imgUrl} isHidden={true} />
+            <Card
+              key={card.val}
+              cardValue={card.val}
+              imgSrc={card.imgUrl}
+              isHidden={true}
+            />
           );
         })}
       </div>

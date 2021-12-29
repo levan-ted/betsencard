@@ -9,6 +9,7 @@ function Card(props) {
   const { cardValue, imgSrc, isHidden } = props;
 
   const selectPlayerCard = () => {
+    if (ctx.botsTurn) return;
     ctx.move(cardValue);
   };
   const cardClasses = isHidden

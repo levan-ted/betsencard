@@ -1,0 +1,38 @@
+$radius: 10px;
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 150px;
+
+  input {
+    background: rgba(0, 0, 0, 0.5);
+    border: none;
+    height: 40%;
+    color: white;
+    outline: none;
+    padding-left: 10px;
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+    color: rgb(117, 180, 235);
+  }
+
+  input:focus {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  }
+
+  button {
+    background: none;
+    border: none;
+    height: 40%;
+    cursor: pointer;
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+    color: rgb(117, 180, 235);
+  }
+
+  button:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+}

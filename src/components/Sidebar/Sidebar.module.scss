@@ -1,0 +1,17 @@
+.sidebar {
+  display: flex;
+  height: 100%;
+  position: absolute;
+  color: white;
+  flex-direction: column;
+  width: 250px;
+  background: rgba(0, 0, 0, 0.2);
+  align-items: center;
+  justify-content: center;
+  transition: ease-in-out 0.2s;
+  z-index: 2;
+}
+
+.expanded {
+  width: 100%;
+}

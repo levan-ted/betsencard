@@ -11,7 +11,12 @@ function PlayerCards() {
       <div className={classes['cards-container']}>
         {ctx.playerCards.map((card) => {
           return (
-            <Card cardValue={card.val} imgSrc={card.imgUrl} isHidden={false} />
+            <Card
+              key={card.val}
+              cardValue={card.val}
+              imgSrc={card.imgUrl}
+              isHidden={false}
+            />
           );
         })}
       </div>

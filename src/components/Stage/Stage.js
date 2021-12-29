@@ -1,11 +1,14 @@
 import React, { useContext } from 'react';
 import GameContext from '../../store/game-context';
+
+import classes from './Stage.module.scss';
+
 import Card from '../Card';
 
 function Stage() {
   const ctx = useContext(GameContext);
   return (
-    <section>
+    <section className={classes.stage}>
       <div>
         {ctx.botCard && (
           <Card imgSrc={ctx.botCard.imgUrl} isHidden={ctx.hideCards} />

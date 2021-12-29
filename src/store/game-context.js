@@ -53,6 +53,7 @@ export const GameCtxProvider = (props) => {
   const [botCard, setBotCard] = useState(null);
 
   const [hideCards, setHideCards] = useState(true);
+  const [botsTurn, setBotsTurn] = useState(true);
 
   const enterName = () => {
     console.log('clicked');
@@ -70,28 +71,47 @@ export const GameCtxProvider = (props) => {
     setTimeout(() => {
       setBotCard((prevState) => selectedBotCard);
     }, 1000);
+    setBotsTurn(false);
+    if (playerCards.length === 0) setIsStarted(false);
   };
 
-  const startGame = () => {
+  const startGame = (name) => {
+    setIsStarted(true);
+    setPlayerName(name);
     nextRound();
   };
 
   const move = (cardValue) => {
     const selectedPlayerCard = playerCards.find((el) => el.val === cardValue);
+    console.log(selectedPlayerCard);
 
     setPlayerCards((prevState) =>
       prevState.filter((el) => el !== selectedPlayerCard)
     );
 
     setTimeout(() => {
-      setPlayerCard((prevState) => selectedPlayerCard);
+      setPlayerCard(selectedPlayerCard);
     }, 500);
+
     setTimeout(() => {
       setHideCards(false);
 
-      if (playerCard.val > botCard.val) setScore((prevScore) => prevScore[0]++);
-      if (playerCard.val < botCard.val) setScore((prevScore) => prevScore[1]++);
+      if (selectedPlayerCard.val > botCard.val) {
+        setScore((prevScore) => {
+          const newScore = [prevScore[0]++, prevScore[1]];
+          return newScore;
+        });
+      }
+
+      if (selectedPlayerCard.val < botCard.val) {
+        setScore((prevScore) => {
+          const newScore = [prevScore[0], prevScore[1]++];
+          return newScore;
+        });
+      }
     }, 2000);
+
+    setBotsTurn(true);
 
     setTimeout(() => {
       setHideCards(true);
@@ -110,12 +130,13 @@ export const GameCtxProvider = (props) => {
         playerCards,
         botCards,
         score,
-        enterName,
-        nextRound,
-        startGame,
         botCard,
         playerCard,
         hideCards,
+        botsTurn,
+        enterName,
+        startGame,
+        nextRound,
         move,
       }}
     >
