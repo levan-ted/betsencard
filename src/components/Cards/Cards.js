@@ -1,8 +1,10 @@
-import React from "react";
-import classes from "./Cards.module.scss";
+import React, { useContext } from 'react';
+import GameContext from '../../store/game-context';
+import classes from './Cards.module.scss';
 
 function Cards() {
-  return <section></section>;
+  const ctx = useContext(GameContext);
+  return <section onClick={ctx.enterName}>{ctx.playerName}</section>;
 }
 
 export default Cards;

@@ -1,13 +1,17 @@
-import classes from "./App.module.scss";
-import { playerCards, botCards } from "./assets/images";
+import classes from './App.module.scss';
+
+import { GameCtxProvider } from './store/game-context';
+
+// import { playerCards, botCards } from './assets/images';
+import Cards from './components/Cards';
 
 function App() {
-  console.log(playerCards);
-  console.log(botCards);
   return (
-    <main className={classes.table}>
-      <img src={playerCards.h2} />
-    </main>
+    <GameCtxProvider>
+      <main className={classes.table}>
+        <Cards />
+      </main>
+    </GameCtxProvider>
   );
 }
 
