@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
+import { botCardImages, playerCardImages } from '../assets/images';
+
 const defaultContext = {
   isStarted: false,
   playerName: '',
   botName: '',
   playerCards: [],
   botCards: [],
-  playerScore: 0,
-  botScore: 0,
+  score: [0, 0],
   enterName: () => {},
 };
 
@@ -15,19 +16,89 @@ const GameContext = React.createContext(defaultContext);
 
 export const GameCtxProvider = (props) => {
   const [isStarted, setIsStarted] = useState(false);
-  const [playerName, setPlayerName] = useState('Playereeeeeee');
+  const [playerName, setPlayerName] = useState('');
   const [playerCards, setPlayerCards] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+    { val: 1, imgUrl: playerCardImages.h1 },
+    { val: 2, imgUrl: playerCardImages.h2 },
+    { val: 3, imgUrl: playerCardImages.h3 },
+    { val: 4, imgUrl: playerCardImages.h4 },
+    { val: 5, imgUrl: playerCardImages.h5 },
+    { val: 6, imgUrl: playerCardImages.h6 },
+    { val: 7, imgUrl: playerCardImages.h7 },
+    { val: 8, imgUrl: playerCardImages.h8 },
+    { val: 9, imgUrl: playerCardImages.h9 },
+    { val: 10, imgUrl: playerCardImages.h10 },
+    { val: 11, imgUrl: playerCardImages.h11 },
+    { val: 12, imgUrl: playerCardImages.h12 },
+    { val: 13, imgUrl: playerCardImages.h13 },
   ]);
   const [botCards, setBotCards] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+    { val: 1, imgUrl: botCardImages.s1 },
+    { val: 2, imgUrl: botCardImages.s2 },
+    { val: 3, imgUrl: botCardImages.s3 },
+    { val: 4, imgUrl: botCardImages.s4 },
+    { val: 5, imgUrl: botCardImages.s5 },
+    { val: 6, imgUrl: botCardImages.s6 },
+    { val: 7, imgUrl: botCardImages.s7 },
+    { val: 8, imgUrl: botCardImages.s8 },
+    { val: 9, imgUrl: botCardImages.s9 },
+    { val: 10, imgUrl: botCardImages.s10 },
+    { val: 11, imgUrl: botCardImages.s11 },
+    { val: 12, imgUrl: botCardImages.s12 },
+    { val: 13, imgUrl: botCardImages.s13 },
   ]);
-  const [playerScore, setPlayerScore] = useState(0);
-  const [botScore, setBotScore] = useState(0);
+  const [score, setScore] = useState([0, 0]);
+
+  const [playerCard, setPlayerCard] = useState(null);
+  const [botCard, setBotCard] = useState(null);
+
+  const [hideCards, setHideCards] = useState(true);
 
   const enterName = () => {
     console.log('clicked');
     setPlayerName('Levan');
+  };
+
+  const nextRound = () => {
+    const selectedBotCardIdx = Math.trunc(Math.random() * botCards.length);
+    const selectedBotCard = botCards[selectedBotCardIdx];
+
+    setBotCards((prevState) =>
+      prevState.filter((el) => el !== selectedBotCard)
+    );
+
+    setTimeout(() => {
+      setBotCard((prevState) => selectedBotCard);
+    }, 1000);
+  };
+
+  const startGame = () => {
+    nextRound();
+  };
+
+  const move = (cardValue) => {
+    const selectedPlayerCard = playerCards.find((el) => el.val === cardValue);
+
+    setPlayerCards((prevState) =>
+      prevState.filter((el) => el !== selectedPlayerCard)
+    );
+
+    setTimeout(() => {
+      setPlayerCard((prevState) => selectedPlayerCard);
+    }, 500);
+    setTimeout(() => {
+      setHideCards(false);
+
+      if (playerCard.val > botCard.val) setScore((prevScore) => prevScore[0]++);
+      if (playerCard.val < botCard.val) setScore((prevScore) => prevScore[1]++);
+    }, 2000);
+
+    setTimeout(() => {
+      setHideCards(true);
+      setBotCard(null);
+      setPlayerCard(null);
+      nextRound();
+    }, 3000);
   };
 
   return (
@@ -38,9 +109,14 @@ export const GameCtxProvider = (props) => {
         botName: 'Bot',
         playerCards,
         botCards,
-        playerScore,
-        botScore,
+        score,
         enterName,
+        nextRound,
+        startGame,
+        botCard,
+        playerCard,
+        hideCards,
+        move,
       }}
     >
       {props.children}
