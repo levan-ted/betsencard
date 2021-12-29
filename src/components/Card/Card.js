@@ -1,14 +1,16 @@
-import React from "react";
-import classes from "./Card.module.scss";
+import React from 'react';
+import classes from './Card.module.scss';
 
-import { cardBack } from "../../assets/images/index";
+import { cardBack } from '../../assets/images/index';
 
 function Card(props) {
-  const { cardValue, imgSrc, hidden } = props;
-
+  const { cardValue, imgSrc, isHidden } = props;
+  const cardClasses = isHidden
+    ? classes.card
+    : `${classes.card} ${classes.interactive}`;
   return (
-    <div className={classes.card}>
-      <img src={hidden ? cardBack : imgSrc} />
+    <div className={cardClasses}>
+      <img src={isHidden ? cardBack : imgSrc} alt="card" />
     </div>
   );
 }

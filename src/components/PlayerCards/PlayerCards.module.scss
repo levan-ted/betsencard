@@ -1,0 +1,15 @@
+.cards-section {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  height: 40%;
+  position: absolute;
+  bottom: 0;
+}
+
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-gap: 5px;
+}

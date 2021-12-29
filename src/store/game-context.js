@@ -33,14 +33,14 @@ export const GameCtxProvider = (props) => {
   return (
     <GameContext.Provider
       value={{
-        isStarted: isStarted,
-        playerName: playerName,
+        isStarted,
+        playerName,
         botName: 'Bot',
-        playerCards: playerCards,
-        botCards: botCards,
-        playerScore: playerScore,
-        botScore: botScore,
-        enterName: enterName,
+        playerCards,
+        botCards,
+        playerScore,
+        botScore,
+        enterName,
       }}
     >
       {props.children}
