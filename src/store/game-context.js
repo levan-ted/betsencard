@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { botCardImages, playerCardImages } from '../assets/images';
+import { botCardImages, playerCardImages } from "../assets/images";
 
 const defaultContext = {
   isStarted: false,
-  playerName: '',
-  botName: '',
+  playerName: "",
+  botName: "",
   playerCards: [],
   botCards: [],
   score: [0, 0],
@@ -14,25 +14,8 @@ const defaultContext = {
 
 const GameContext = React.createContext(defaultContext);
 
-export const GameCtxProvider = (props) => {
-  const [isStarted, setIsStarted] = useState(false);
-  const [playerName, setPlayerName] = useState('');
-  const [playerCards, setPlayerCards] = useState([
-    { val: 1, imgUrl: playerCardImages.h1 },
-    { val: 2, imgUrl: playerCardImages.h2 },
-    { val: 3, imgUrl: playerCardImages.h3 },
-    { val: 4, imgUrl: playerCardImages.h4 },
-    { val: 5, imgUrl: playerCardImages.h5 },
-    { val: 6, imgUrl: playerCardImages.h6 },
-    { val: 7, imgUrl: playerCardImages.h7 },
-    { val: 8, imgUrl: playerCardImages.h8 },
-    { val: 9, imgUrl: playerCardImages.h9 },
-    { val: 10, imgUrl: playerCardImages.h10 },
-    { val: 11, imgUrl: playerCardImages.h11 },
-    { val: 12, imgUrl: playerCardImages.h12 },
-    { val: 13, imgUrl: playerCardImages.h13 },
-  ]);
-  const [botCards, setBotCards] = useState([
+const initialCards = {
+  botCards: [
     { val: 1, imgUrl: botCardImages.s1 },
     { val: 2, imgUrl: botCardImages.s2 },
     { val: 3, imgUrl: botCardImages.s3 },
@@ -46,7 +29,29 @@ export const GameCtxProvider = (props) => {
     { val: 11, imgUrl: botCardImages.s11 },
     { val: 12, imgUrl: botCardImages.s12 },
     { val: 13, imgUrl: botCardImages.s13 },
-  ]);
+  ],
+  playerCards: [
+    { val: 1, imgUrl: playerCardImages.h1 },
+    { val: 2, imgUrl: playerCardImages.h2 },
+    { val: 3, imgUrl: playerCardImages.h3 },
+    { val: 4, imgUrl: playerCardImages.h4 },
+    { val: 5, imgUrl: playerCardImages.h5 },
+    { val: 6, imgUrl: playerCardImages.h6 },
+    { val: 7, imgUrl: playerCardImages.h7 },
+    { val: 8, imgUrl: playerCardImages.h8 },
+    { val: 9, imgUrl: playerCardImages.h9 },
+    { val: 10, imgUrl: playerCardImages.h10 },
+    { val: 11, imgUrl: playerCardImages.h11 },
+    { val: 12, imgUrl: playerCardImages.h12 },
+    { val: 13, imgUrl: playerCardImages.h13 },
+  ],
+};
+
+export const GameCtxProvider = (props) => {
+  const [isStarted, setIsStarted] = useState(false);
+  const [playerName, setPlayerName] = useState("");
+  const [playerCards, setPlayerCards] = useState(initialCards.playerCards);
+  const [botCards, setBotCards] = useState(initialCards.botCards);
   const [score, setScore] = useState([0, 0]);
 
   const [playerCard, setPlayerCard] = useState(null);
@@ -56,8 +61,8 @@ export const GameCtxProvider = (props) => {
   const [botsTurn, setBotsTurn] = useState(true);
 
   const enterName = () => {
-    console.log('clicked');
-    setPlayerName('Levan');
+    console.log("clicked");
+    setPlayerName("Levan");
   };
 
   const nextRound = () => {
@@ -73,6 +78,17 @@ export const GameCtxProvider = (props) => {
     }, 1000);
     setBotsTurn(false);
     if (playerCards.length === 0) setIsStarted(false);
+  };
+
+  const startAgain = () => {
+    console.log("startagain");
+    setIsStarted(false);
+    setPlayerName("");
+    setPlayerCards(initialCards.playerCards);
+    setBotCards(initialCards.botCards);
+    setScore([0, 0]);
+    setPlayerCard(null);
+    setBotCard(null);
   };
 
   const startGame = (name) => {
@@ -126,7 +142,7 @@ export const GameCtxProvider = (props) => {
       value={{
         isStarted,
         playerName,
-        botName: 'Bot',
+        botName: "Bot",
         playerCards,
         botCards,
         score,
@@ -138,6 +154,7 @@ export const GameCtxProvider = (props) => {
         startGame,
         nextRound,
         move,
+        startAgain,
       }}
     >
       {props.children}
