@@ -60,11 +60,6 @@ export const GameCtxProvider = (props) => {
   const [hideCards, setHideCards] = useState(true);
   const [botsTurn, setBotsTurn] = useState(true);
 
-  const enterName = () => {
-    console.log("clicked");
-    setPlayerName("Levan");
-  };
-
   const nextRound = () => {
     const selectedBotCardIdx = Math.trunc(Math.random() * botCards.length);
     const selectedBotCard = botCards[selectedBotCardIdx];
@@ -150,7 +145,6 @@ export const GameCtxProvider = (props) => {
         playerCard,
         hideCards,
         botsTurn,
-        enterName,
         startGame,
         nextRound,
         move,
