@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
 import { botCardImages, playerCardImages } from "../assets/images";
+import flip from "../assets/sounds/flip.mp3";
+import scored from "../assets/sounds/score.wav";
+import fail from "../assets/sounds/fail.mp3";
+
+const flipAudio = new Audio(flip);
+const scoreAudio = new Audio(scored);
+const failAudio = new Audio(fail);
 
 const defaultContext = {
   isStarted: false,
@@ -70,6 +77,7 @@ export const GameCtxProvider = (props) => {
 
     setTimeout(() => {
       setBotCard((prevState) => selectedBotCard);
+      flipAudio.play();
     }, 1000);
     setBotsTurn(false);
     if (playerCards.length === 0) setIsStarted(false);
@@ -102,6 +110,7 @@ export const GameCtxProvider = (props) => {
 
     setTimeout(() => {
       setPlayerCard(selectedPlayerCard);
+      flipAudio.play();
     }, 500);
 
     setTimeout(() => {
@@ -112,6 +121,7 @@ export const GameCtxProvider = (props) => {
           const newScore = [prevScore[0]++, prevScore[1]];
           return newScore;
         });
+        scoreAudio.play();
       }
 
       if (selectedPlayerCard.val < botCard.val) {
@@ -119,6 +129,7 @@ export const GameCtxProvider = (props) => {
           const newScore = [prevScore[0], prevScore[1]++];
           return newScore;
         });
+        failAudio.play();
       }
     }, 2000);
 
