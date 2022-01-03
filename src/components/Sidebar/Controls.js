@@ -6,13 +6,13 @@ import GameContext from "../../store/game-context";
 function Controls() {
   const ctx = useContext(GameContext);
 
-  const startAgainHandler = () => {
-    ctx.startAgain();
+  const resetHandler = () => {
+    ctx.reset();
   };
 
   return (
     <div className={classes.controls}>
-      <button onClick={startAgainHandler}>Start Again</button>
+      <button onClick={resetHandler}>Reset</button>
     </div>
   );
 }

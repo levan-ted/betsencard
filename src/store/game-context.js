@@ -67,7 +67,29 @@ export const GameCtxProvider = (props) => {
   const [hideCards, setHideCards] = useState(true);
   const [botsTurn, setBotsTurn] = useState(true);
 
+  const [showResults, setShowResults] = useState(false);
+
+  const reset = () => {
+    setIsStarted(false);
+    setPlayerName("");
+    setPlayerCards(initialCards.playerCards);
+    setBotCards(initialCards.botCards);
+    setScore([0, 0]);
+    setPlayerCard(null);
+    setBotCard(null);
+    setShowResults(false);
+  };
+
+  const finish = () => {
+    setShowResults(true);
+  };
+
   const nextRound = () => {
+    if (botCards.length === 0) {
+      finish();
+      console.log("FINISH");
+      return;
+    }
     const selectedBotCardIdx = Math.trunc(Math.random() * botCards.length);
     const selectedBotCard = botCards[selectedBotCardIdx];
 
@@ -81,17 +103,6 @@ export const GameCtxProvider = (props) => {
     }, 1000);
     setBotsTurn(false);
     if (playerCards.length === 0) setIsStarted(false);
-  };
-
-  const startAgain = () => {
-    console.log("startagain");
-    setIsStarted(false);
-    setPlayerName("");
-    setPlayerCards(initialCards.playerCards);
-    setBotCards(initialCards.botCards);
-    setScore([0, 0]);
-    setPlayerCard(null);
-    setBotCard(null);
   };
 
   const startGame = (name) => {
@@ -159,7 +170,8 @@ export const GameCtxProvider = (props) => {
         startGame,
         nextRound,
         move,
-        startAgain,
+        reset,
+        showResults,
       }}
     >
       {props.children}

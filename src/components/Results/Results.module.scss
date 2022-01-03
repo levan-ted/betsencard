@@ -1,0 +1,16 @@
+.results {
+  display: flex;
+  position: absolute;
+  color: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: 300px;
+
+  h3 {
+    font-size: 3rem;
+  }
+}
