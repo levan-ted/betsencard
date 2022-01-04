@@ -16,7 +16,15 @@ const defaultContext = {
   playerCards: [],
   botCards: [],
   score: [0, 0],
-  enterName: () => {},
+  botCard: {},
+  playerCard: {},
+  hideCards: true,
+  botsTurn: true,
+  startGame: () => {},
+  nextRound: () => {},
+  move: () => {},
+  reset: () => {},
+  showResults: false,
 };
 
 const GameContext = React.createContext(defaultContext);
@@ -87,7 +95,6 @@ export const GameCtxProvider = (props) => {
   const nextRound = () => {
     if (botCards.length === 0) {
       finish();
-      console.log("FINISH");
       return;
     }
     const selectedBotCardIdx = Math.trunc(Math.random() * botCards.length);
